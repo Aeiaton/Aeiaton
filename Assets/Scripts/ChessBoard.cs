@@ -17,7 +17,7 @@ public class ChessBoard : MonoBehaviour
             {
                 GameObject cell = Instantiate(cellPrefab, transform);
                 RectTransform rectTransform = cell.GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = new Vector2(x * 100 + 50, y * 100 + 50);
+                rectTransform.anchoredPosition = new Vector2(x * 100 - 350, y * 100 - 350);
                 cells[x, y] = cell.GetComponent<ChessBoardCell>();
                 cells[x, y].Setup(new Vector2Int(x, y), this);
                 if (y > 3) {
@@ -34,14 +34,7 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
+    void Start(){}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update(){}
 }
