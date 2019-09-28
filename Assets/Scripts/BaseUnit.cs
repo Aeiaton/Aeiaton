@@ -11,12 +11,18 @@ public abstract class BaseUnit : EventTrigger
     protected RectTransform rectTransform = null;
     protected UnitManager unitManager;
     protected ChessBoardCell currentCell;
+    protected ChessBoardCell destCell;
+    protected ChessBoard board;
 
-    public virtual void Setup(UnitManager unitManager, Color32 color)
+    protected bool isPlayer;
+
+    public virtual void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color)
     {
         this.unitManager = unitManager;
         this.color = color;
         GetComponent<Image>().color = color;
+        this.board = board;
+        this.isPlayer = isPlayer;
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -27,5 +33,12 @@ public abstract class BaseUnit : EventTrigger
         Debug.Log(cell.transform.position);
         gameObject.SetActive(true);
     }
+
+    public void Move() {
+        Place(destCell);
+    }
+
+    public virtual void ComputeMove();
+    
 
 }
