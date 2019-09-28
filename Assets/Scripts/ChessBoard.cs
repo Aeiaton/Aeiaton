@@ -36,5 +36,8 @@ public class ChessBoard : MonoBehaviour
 
     void Start(){}
 
-    void Update(){}
+    void Update()
+    {
+        
+    }
 }
