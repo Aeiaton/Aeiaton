@@ -36,5 +36,15 @@ public class ChessBoard : MonoBehaviour
 
     void Start(){}
 
+<<<<<<< HEAD
     void Update(){}
+=======
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+>>>>>>> 52e948020654fbe90d11defb49ec3e3e23d2f0ac
 }
