@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class TestUnit : BaseUnit
 {
+    override public void ComputeMove() {
+
+    }
 
 }

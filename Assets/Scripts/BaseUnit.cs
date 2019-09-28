@@ -63,7 +63,7 @@ public abstract class BaseUnit : EventTrigger
         Place(destCell);
     }
 
-    public virtual void ComputeMove();
+    public abstract void ComputeMove();
     
 
 }

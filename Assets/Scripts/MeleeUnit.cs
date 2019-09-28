@@ -10,7 +10,7 @@ public class MeleeUnit : BaseUnit
         
     }
 
-    public void ComputeMove(){
+    override public void ComputeMove(){
         int dir;
         if (isPlayer) {
             dir = 1;
@@ -18,7 +18,7 @@ public class MeleeUnit : BaseUnit
             dir = -1;
         }
         
-        if (0 <= currentCell.position.y + dir <= 7) { 
+        if (0 <= currentCell.position.y + dir && currentCell.position.y <= 7) { 
             ChessBoardCell to = board.cells[currentCell.position.x, currentCell.position.y + dir];
             if (to.currentUnit == null) {
                 destCell = to;

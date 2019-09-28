@@ -22,13 +22,8 @@ public class UnitManager : MonoBehaviour
             Type unitType = typeof(TestUnit);
             BaseUnit baseUnit = (BaseUnit) unit.AddComponent(unitType);
             playerUnits.Add(baseUnit);
-<<<<<<< HEAD
-            baseUnit.Setup(this, new Color32(66, 245, 230, 255));
+            baseUnit.Setup(this, board, true, new Color32(66, 245, 230, 255));
             baseUnit.Place(board.cells[i, 0]);
-=======
-            baseUnit.Setup(this, board, new Color32(102, 116, 138, 255));
-            baseUnit.Place(board.cells[0, i]);
->>>>>>> 52e948020654fbe90d11defb49ec3e3e23d2f0ac
         }
     }
 
