@@ -7,11 +7,14 @@ public class GameManager : MonoBehaviour
 
     public ChessBoard board;
     public UnitManager unitManager;
+    public ShopManager shopManager;
 
     void Start()
     {
         board.CreateBoard();
+        board.CreateBench();
         unitManager.Setup(board);
+        shopManager.Setup(unitManager, board);
     }
 
     // Update is called once per frame

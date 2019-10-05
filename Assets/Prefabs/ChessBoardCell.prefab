@@ -89,3 +89,4 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   board: {fileID: 0}
   rectTransform: {fileID: 0}
+  currentUnit: {fileID: 0}
