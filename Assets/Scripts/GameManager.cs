@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
         board.CreateBoard();
         board.CreateBench();
         unitManager.Setup(board);
-        shopManager.Setup(unitManager, board);
     }
 
     // Update is called once per frame

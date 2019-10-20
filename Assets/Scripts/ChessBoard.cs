@@ -8,7 +8,7 @@ public class ChessBoard : MonoBehaviour
 
     public GameObject cellPrefab;
     public ChessBoardCell[,] boardCells = new ChessBoardCell[8, 8];
-    public ChessBoardCell[,] benchCells = new ChessBoardCell[10, 1];
+    public ChessBoardCell[,] benchCells = new ChessBoardCell[1, 10];
 
     public void CreateBoard()
     {
@@ -37,15 +37,15 @@ public class ChessBoard : MonoBehaviour
     
     public void CreateBench()
     {
-        for (int x = 0; x < 10; ++x)
+        for (int y = 0; y < 10; ++y)
         {
             GameObject cell = Instantiate(cellPrefab, transform);
             RectTransform rectTransform = cell.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(x * 100 - 450, -500);
-            benchCells[x, 0] = cell.GetComponent<ChessBoardCell>();
-            benchCells[x, 0].Setup(new Vector2Int(x, 0), this);
+            rectTransform.anchoredPosition = new Vector2(-500, 450 - (y * 100));
+            benchCells[0, y] = cell.GetComponent<ChessBoardCell>();
+            benchCells[0, y].Setup(new Vector2Int(y, 0), this);
 
-            benchCells[x, 0].GetComponent<Image>().color = x % 2 == 0 ?
+            benchCells[0, y].GetComponent<Image>().color = y % 2 == 0 ?
             new Color32(52, 71, 102, 255) :
             new Color32(66, 91, 130, 255);
             
