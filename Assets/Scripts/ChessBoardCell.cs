@@ -19,9 +19,5 @@ public class ChessBoardCell : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update(){}
 }

@@ -9,16 +9,11 @@ public class GameManager : MonoBehaviour
     public UnitManager unitManager;
     public ShopManager shopManager;
 
+
     void Start()
     {
         board.CreateBoard();
         board.CreateBench();
         unitManager.Setup(board);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

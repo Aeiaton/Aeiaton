@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class TestUnit : BaseUnit
 {
+    override public void ComputeMove() {
+
+    }
+
+    override public ChessBoardCell FindOpponent() {
+        return null;
+    }
 
 }

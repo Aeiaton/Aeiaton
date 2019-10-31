@@ -10,13 +10,26 @@ public abstract class BaseUnit : EventTrigger
     public Color color = Color.clear;
     protected RectTransform rectTransform = null;
     protected UnitManager unitManager;
-    protected ChessBoardCell currentCell;
+    public ChessBoardCell currentCell;
+    protected ChessBoardCell destCell;
 
-    public virtual void Setup(UnitManager unitManager, Color32 color)
+    protected ChessBoardCell opponentCell;
+    protected ChessBoard board;
+
+    protected int health;
+
+    protected int damage = 1;
+
+    public bool isPlayer;
+
+    public virtual void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color, int health)
     {
         this.unitManager = unitManager;
         this.color = color;
         GetComponent<Image>().color = color;
+        this.board = board;
+        this.isPlayer = isPlayer;
+        this.health = health;
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -38,13 +51,7 @@ public abstract class BaseUnit : EventTrigger
 
     public override void OnEndDrag(PointerEventData eventData) {
         ChessBoardCell targetCell = null;
-        foreach (ChessBoardCell cell in currentCell.board.boardCells) {
-            if (RectTransformUtility.RectangleContainsScreenPoint(cell.rectTransform, Input.mousePosition)) {
-                targetCell = cell;
-                break;
-            }
-        }
-        foreach (ChessBoardCell cell in currentCell.board.benchCells) {
+        foreach (ChessBoardCell cell in currentCell.board.cells) {
             if (RectTransformUtility.RectangleContainsScreenPoint(cell.rectTransform, Input.mousePosition)) {
                 targetCell = cell;
                 break;
@@ -59,4 +66,37 @@ public abstract class BaseUnit : EventTrigger
             transform.position = currentCell.transform.position;
         }
     }
+    public void Tick() {
+        if (opponentCell == null) { // not in combat
+            FindOpponent();
+            if (opponentCell == null) { //attempts to find opponent. If nothing around, move
+                ComputeMove();
+                Place(destCell);
+            } else {               // found new opponent
+                DealDamage();
+            }
+        } else { // already engaged in combat
+            if (opponentCell.currentUnit == null) { // opponentCell killed by someone else
+                opponentCell = null;
+            } else {
+                DealDamage();
+            }
+        }
+    }
+
+    public void DealDamage() {
+        if (opponentCell != null) {
+            BaseUnit opponent = opponentCell.currentUnit;
+            opponent.health -= damage;
+            if (opponent.health <= 0) {
+                unitManager.Remove(opponent);
+                opponentCell = null;
+            }
+        }
+    }
+    
+    public abstract ChessBoardCell FindOpponent();
+    public abstract void ComputeMove();
+    
+
 }
