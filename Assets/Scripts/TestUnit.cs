@@ -8,4 +8,8 @@ public class TestUnit : BaseUnit
 
     }
 
+    override public ChessBoardCell FindOpponent() {
+        return null;
+    }
+
 }

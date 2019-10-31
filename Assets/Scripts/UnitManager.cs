@@ -23,7 +23,7 @@ public class UnitManager : MonoBehaviour
             Type unitType = typeof(MeleeUnit);
             BaseUnit baseUnit = (BaseUnit) unit.AddComponent(unitType);
             playerUnits.Add(baseUnit);
-            baseUnit.Setup(this, board, true, new Color32(66, 245, 230, 255));
+            baseUnit.Setup(this, board, true, new Color32(66, 245, 230, 255), 5);
             baseUnit.Place(board.cells[i, 0]);
 
             
@@ -37,7 +37,7 @@ public class UnitManager : MonoBehaviour
             Type unitType = typeof(MeleeUnit);
             BaseUnit baseUnit = (BaseUnit) unit.AddComponent(unitType);
             playerUnits.Add(baseUnit);
-            baseUnit.Setup(this, board, false, new Color32(66, 245, 230, 255));
+            baseUnit.Setup(this, board, false, new Color32(66, 245, 230, 255), 3);
             baseUnit.Place(board.cells[i+3, 7]);
         }
     }
@@ -49,13 +49,15 @@ public class UnitManager : MonoBehaviour
             elapsedTime = 0;
             foreach(BaseUnit unit in playerUnits)
             {
-                unit.ComputeMove();
-            }
-            foreach(BaseUnit unit in playerUnits)
-            {
-                unit.Move();
+                unit.Tick();
             }
         }
+    }
+
+    public void Remove(BaseUnit deadUnit) {
+        playerUnits.Remove(deadUnit);
+        deadUnit.currentCell.currentUnit = null;
+        Destroy(deadUnit);
     }
 
 }
