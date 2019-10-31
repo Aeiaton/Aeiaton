@@ -19,15 +19,16 @@ public class ShopManager : MonoBehaviour
 	}
   	
   	public Transform itemsParent;
+  	public Item item;
     public ShopCell[] cells;
 
-	public void Setup(UnitManager unitManager, ChessBoard board) {
+	public void Setup() {
         cells = itemsParent.GetComponentsInChildren<ShopCell>();
 
 		// TODO: Randomize Shop based on a selection in a pool of units
 		// 		 Make unit construction function based on unit details 
 		for (int i = 0; i < 5; i++) {
-            cells[i].AddUnit(unitManager, board);
+            cells[i].AddItem(item);
         }
 
 
