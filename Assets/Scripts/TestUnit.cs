@@ -12,4 +12,6 @@ public class TestUnit : BaseUnit
         return null;
     }
 
+    override public void FindTargetCell() {}
+
 }
