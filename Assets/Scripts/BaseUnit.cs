@@ -14,8 +14,8 @@ public abstract class BaseUnit : EventTrigger
     public ChessBoardCell previousCell;
     protected ChessBoardCell destCell;
 
-    protected ChessBoardCell opponentCell;          // cell where the opponent unit is
-    protected ChessBoardCell targetCell;            // cell where we want to go to attack opponent
+    protected ChessBoardCell opponentCell;
+    protected ChessBoardCell targetCell;
 
     protected ChessBoard board;
 
@@ -36,13 +36,12 @@ public abstract class BaseUnit : EventTrigger
 
     public bool isPlayer;
 
-    public virtual void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color, int health) {
+    public virtual void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color) {
         this.unitManager = unitManager;
         this.color = color;
         GetComponent<Image>().color = color;
         this.board = board;
         this.isPlayer = isPlayer;
-        this.health = health;
         this.isActive = false;
         isMoving = false;
         isFighting = false;
@@ -78,6 +77,7 @@ public abstract class BaseUnit : EventTrigger
 
         // The unit is moving to a previously decided cell, so we don't make any decisions until it reaches the next cell.
         if (isMoving) {
+            // TODO: I don't think this speed actually varies with different values, interpolation fraction isn't correct
             movementProgress += speed * Time.deltaTime;
             rectTransform.position = Vector3.Lerp(previousCell.transform.position, currentCell.transform.position, movementProgress);
 
@@ -91,9 +91,9 @@ public abstract class BaseUnit : EventTrigger
             // Check if we reached the target cell
             if (targetCell != null && Mathf.Abs(rectTransform.position.x - targetCell.transform.position.x) <= 0.1 && Mathf.Abs(rectTransform.position.y - targetCell.transform.position.y) <= 0.1) {
                 isMoving = false;
-                isFighting = true;
                 rectTransform.position = currentCell.transform.position;
                 arrivedAtNextCell = true;
+                if (CanAttack()) isFighting = true;
             }
 
             return;
@@ -101,54 +101,40 @@ public abstract class BaseUnit : EventTrigger
 
         // Once the unit reaches a cell, it can decide who the opponent is and how to get there, or fight if it is already there
         if (arrivedAtNextCell && !isFighting) {
-            if (isPlayer) Debug.Log("Arrived at cell, choosing next cell");
-            // Sets opponentCell
-            FindOpponent();
-            // Sets targetCell
-            FindTargetCell();
-            // Sets destCell
-            ComputeMove();
 
-            // Ignore the move if we are already at the target position
-            if (destCell.position == currentCell.position) {
+            FindOpponent();
+            if (opponentCell == null) return;
+
+            if (CanAttack()) {
+                // If we are already in position to hit an opponent, then don't bother calculating the position.
                 isFighting = true;
             } else {
-                if (isPlayer) Debug.Log("curr="+currentCell.position+"opp="+opponentCell.position+"target="+targetCell.position+" dest="+destCell.position);
-                Place(destCell, false);
+                FindTargetCell();
+                ComputeMove();
+                if (destCell != null) {
+                    Place(destCell, false);
+                }
+                
             }
             
         }
 
         if (isFighting) {
             if (opponentCell.currentUnit == null) {
-                if (isPlayer) Debug.Log("Opponent is gone");
+                // Opponent is no longer there; maybe moved, maybe was killed
                 isFighting = false;
             } else {
-                if (isPlayer) Debug.Log("Fighting");
-                //DealDamage();
+                // Only attack after you wait for the correct amount of time, not every frame
+                if (timeSinceLastAttack >= attackWait) {
+                    DealDamage();
+                    timeSinceLastAttack = 0;
+                } else {
+                    timeSinceLastAttack += Time.deltaTime;
+                }
+                
             }
         }
         
-    }
-
-    public void Tick() {
-        if (opponentCell == null) { // not in combat
-            FindOpponent();
-            if (opponentCell == null) { //attempts to find opponent. If nothing around, move
-                ComputeMove();
-                if (movementProgress >= 1) {
-                    Place(destCell, false);
-                }
-            } else {               // found new opponent
-                DealDamage();
-            }
-        } else { // already engaged in combat
-            if (opponentCell.currentUnit == null) { // opponentCell killed by someone else
-                opponentCell = null;
-            } else {
-                DealDamage();
-            }
-        }
     }
 
     public void TakeDamage(float damage) {
@@ -181,15 +167,20 @@ public abstract class BaseUnit : EventTrigger
             transform.position = currentCell.gameObject.transform.position;
         } else {
             Place(targetCell, false);
-            //currentCell = targetCell;
-            //currentCell.currentUnit = this;
             transform.position = currentCell.transform.position;
         }
     }
 
+    // Searches board to find opponent. Generally, the closest.
     public abstract ChessBoardCell FindOpponent();
+    // Sets targetCell. Based on the opponent it found, search for a 
+    // cell to go to so that it can fight that opponent. For melee, this 
+    // is right next to the opponent, for ranged maybe father away
     public abstract void FindTargetCell();
+    // Based on the target cell, set destCell. Choose the next cell to go
+    // to that is in the direction of the target cell.
     public abstract void ComputeMove();
-    
+    // Check if unit can attack the opponent from its current position.
+    public abstract bool CanAttack();    
 
 }

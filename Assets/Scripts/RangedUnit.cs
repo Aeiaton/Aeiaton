@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
-public class MeleeUnit : BaseUnit {
+public class RangedUnit : BaseUnit {
 
-    // 'base' is keyword, references the parent
     override public void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color) {
         base.Setup(unitManager, board, isPlayer, color);
-        speed = AutoChessData.MELEE_SPEED;
-        health = AutoChessData.MELEE_HEALTH;
-        attackWait = AutoChessData.MELEE_ATTACK_SPEED;
+        speed = AutoChessData.RANGED_ATTACK_SPEED;
+        health = AutoChessData.RANGED_HEALTH;
+        attackWait = AutoChessData.RANGED_ATTACK_SPEED;
         Image image = gameObject.GetComponent<Image>();
-        image.sprite = Resources.Load<Sprite>("Purple_Guard");
+        image.sprite = Resources.Load<Sprite>("Cyclo_Elder");
     }
 
-    // TODO: if there isn't any adjacent free cell for the closest opponent, then we should consider the next closest.
-    override public ChessBoardCell FindOpponent () {
-
+    // TODO: ranged unit might want to move away from opponent, and then start attacking, so that it keeps its distance
+    // TODO: don't just find cell within range, find _closest_ cell within range
+    // TODO: don't repeat this code, make something more efficient and put it in a static function somewhere
+    override public ChessBoardCell FindOpponent() {
         float smallestDistance = -1;
         ChessBoardCell closest = null;
         foreach(ChessBoardCell cell in board.boardCells) {
@@ -31,20 +30,17 @@ public class MeleeUnit : BaseUnit {
         }
         opponentCell = closest;
         return closest;
-
     }
-
-    // TODO: combine with FindOpponent() to only use single pass
     override public void FindTargetCell() {
-        float smallestDistance = -1;
+        // Looking for closest cell that is barely in range to hit opponent
+        float distance = -1;
         ChessBoardCell target = null;
         foreach(ChessBoardCell cell in board.boardCells) {
             if (!cell.isOccupied()) {
-                float toUnit = 0*(cell.position - currentCell.position).magnitude;
                 float toOpponent = (cell.position - opponentCell.position).magnitude;
-                if (target == null || toUnit + toOpponent < smallestDistance) {
+                if (target == null || toOpponent - AutoChessData.RANGED_ATTACK_RANGE < distance) {
                     target = cell;
-                    smallestDistance = toUnit + toOpponent;
+                    distance = toOpponent;
                 }
 
             }
@@ -52,8 +48,9 @@ public class MeleeUnit : BaseUnit {
         targetCell = target;
     }
 
-    override public void ComputeMove() {
 
+    override public void ComputeMove() {
+        
         float smallestDistance = -1;
         ChessBoardCell dest = null;
 
@@ -82,7 +79,7 @@ public class MeleeUnit : BaseUnit {
     }
 
     override public bool CanAttack() {
-        return (currentCell.position - opponentCell.position).magnitude == 1;
+        return (currentCell.position - opponentCell.position).magnitude <= AutoChessData.RANGED_ATTACK_RANGE;
     }
 
 }

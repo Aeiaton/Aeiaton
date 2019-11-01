@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour
     public float health;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
 
         // foreground = this.GetComponentInChildren(typeof(Image)) as Image;
@@ -27,14 +27,19 @@ public class HealthBar : MonoBehaviour
         max_width = transform.rect.width;
         height = transform.rect.height;
 
-        BaseUnit b = this.GetComponentInParent<BaseUnit>();
-        health = b.health;
-        max_health = b.health;
+        // BaseUnit b = this.GetComponentInParent<BaseUnit>();
+        // health = b.health;
+        // max_health = b.health;
+        // Debug.Log("healthbar health="+health);
+    }
+
+    public void Setup(float h) {
+        health = h;
+        max_health = h;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (health <= 0) health = 0;
         foregroundTransform.sizeDelta = new Vector2(health / max_health * max_width, height);
         float offset = (max_width - (health / max_health * max_width)) / 2;
