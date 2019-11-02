@@ -7,7 +7,7 @@ public class RangedUnit : BaseUnit {
 
     override public void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color) {
         base.Setup(unitManager, board, isPlayer, color);
-        speed = AutoChessData.RANGED_ATTACK_SPEED;
+        speed = AutoChessData.RANGED_SPEED;
         health = AutoChessData.RANGED_HEALTH;
         attackWait = AutoChessData.RANGED_ATTACK_SPEED;
         Image image = gameObject.GetComponent<Image>();

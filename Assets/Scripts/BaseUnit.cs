@@ -78,8 +78,8 @@ public abstract class BaseUnit : EventTrigger
         // The unit is moving to a previously decided cell, so we don't make any decisions until it reaches the next cell.
         if (isMoving) {
             // TODO: I don't think this speed actually varies with different values, interpolation fraction isn't correct
-            movementProgress += speed * Time.deltaTime;
-            rectTransform.position = Vector3.Lerp(previousCell.transform.position, currentCell.transform.position, movementProgress);
+            movementProgress += Time.deltaTime;
+            rectTransform.position = Vector3.Lerp(previousCell.transform.position, currentCell.transform.position, movementProgress / speed);
 
             // Check if we reached the dest cell
             if (Mathf.Abs(rectTransform.position.x - currentCell.transform.position.x) <= 0.1 && Mathf.Abs(rectTransform.position.y - currentCell.transform.position.y) <= 0.1) {
