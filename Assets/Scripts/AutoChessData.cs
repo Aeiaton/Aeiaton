@@ -18,4 +18,11 @@ public class AutoChessData : MonoBehaviour {
     public const float RANGED_ATTACK_SPEED = 1f;
     public const float RANGED_ATTACK_RANGE = 4f;
 
+    // Assassin Unit Data
+    public const float ASSASSIN_SPEED = 4f;
+    
+    public const float ASSASSIN_HEALTH = 8f;
+
+    public const float ASSASSIN_ATTACK_SPEED = 0.5f;
+
 }
