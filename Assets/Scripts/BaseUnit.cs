@@ -20,6 +20,7 @@ public abstract class BaseUnit : EventTrigger
     protected ChessBoard board;
 
     public bool isActive;
+    public bool onBench;
 
     // True when unit is moving between source and destination cells
     public bool isMoving;
@@ -39,6 +40,7 @@ public abstract class BaseUnit : EventTrigger
     public virtual void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color) {
         this.unitManager = unitManager;
         this.color = color;
+        onBench = true;
         GetComponent<Image>().color = color;
         this.board = board;
         this.isPlayer = isPlayer;
@@ -49,13 +51,14 @@ public abstract class BaseUnit : EventTrigger
         rectTransform = GetComponent<RectTransform>();
     }
 
-    // Assign the cell to move to and begin movement
-    public void Place(ChessBoardCell cell, bool initial) {
+    // Assign the cell to move to and begin movement, onBoard = true if placing onto the board as opposed to the bench
+    public void Place(ChessBoardCell cell, bool initial, bool onBoard) {
         if (currentCell) {
             currentCell.currentUnit = null;
             currentCell.occupied = false;
         }
-        previousCell = currentCell ==  null ? cell : currentCell;
+        onBench = !onBoard;
+        previousCell = (currentCell ==  null || initial) ? cell : currentCell;
         currentCell = cell;
         currentCell.currentUnit = this;
         gameObject.SetActive(true);
@@ -112,7 +115,7 @@ public abstract class BaseUnit : EventTrigger
                 FindTargetCell();
                 ComputeMove();
                 if (destCell != null) {
-                    Place(destCell, false);
+                    Place(destCell, false, true);
                 }
                 
             }
@@ -164,10 +167,11 @@ public abstract class BaseUnit : EventTrigger
             }
         }
         if (!targetCell) {
+            Debug.Log("BaseUnit ended drag, failed to find cell");
             transform.position = currentCell.gameObject.transform.position;
         } else {
-            Place(targetCell, false);
-            transform.position = currentCell.transform.position;
+            Place(targetCell, true, true);
+            //transform.position = currentCell.transform.position;
         }
     }
 

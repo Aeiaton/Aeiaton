@@ -19,32 +19,36 @@ public class UnitManager : MonoBehaviour
         running = false;
         playerUnits = new List<BaseUnit>();
 
-        Type[,] playerUnitTypes = new Type[8,4];
-        playerUnitTypes[0, 0] = typeof(RangedUnit);
-        playerUnitTypes[1, 0] = typeof(AssassinUnit);
-        playerUnitTypes[2, 0] = typeof(IdleUnit);
-        playerUnitTypes[3, 0] = typeof(MeleeUnit);
-        playerUnitTypes[0, 1] = typeof(MeleeUnit);
-
         Type[,] opponentUnitTypes = new Type[8,4];
         opponentUnitTypes[0, 3] = typeof(MeleeUnit);
-        opponentUnitTypes[1, 3] = typeof(MeleeUnit);
-        opponentUnitTypes[2, 3] = typeof(MeleeUnit);
+        opponentUnitTypes[1, 3] = typeof(RangedUnit);
+        opponentUnitTypes[2, 3] = typeof(AssassinUnit);
+        opponentUnitTypes[3, 3] = typeof(MeleeUnit);
+        opponentUnitTypes[4, 3] = typeof(MeleeUnit);
 
+        AddUnit(board, typeof(MeleeUnit), 0, 0, true, false);
+        AddUnit(board, typeof(MeleeUnit), 0, 1, true, false);
+        AddUnit(board, typeof(RangedUnit), 0, 2, true, false);
+        AddUnit(board, typeof(RangedUnit), 0, 3, true, false);
+        AddUnit(board, typeof(AssassinUnit), 0, 4, true, false);
+        AddUnit(board, typeof(AssassinUnit), 0, 5, true, false);
+        AddUnit(board, typeof(IdleUnit), 0, 6, true, false);
+        AddUnit(board, typeof(IdleUnit), 0, 7, true, false);
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 4; ++y) {
-                if (playerUnitTypes[x, y] != null) {
-                    AddUnit(board, playerUnitTypes[x, y], x, y, true);
-                }
+                // if (playerUnitTypes[x, y] != null) {
+                //     AddUnit(board, playerUnitTypes[x, y], x, y, true, true);
+                // }
                 if (opponentUnitTypes[x, y] != null) {
-                    AddUnit(board, opponentUnitTypes[x, y], x, y + 4, false);
+                    AddUnit(board, opponentUnitTypes[x, y], x, y + 4, false, true);
                 }
             }
         }
     }
 
-    private void AddUnit(ChessBoard board, Type type, int x, int y, bool isPlayer) {
+    // onBoard = true to place on board, false for bench
+    private void AddUnit(ChessBoard board, Type type, int x, int y, bool isPlayer, bool onBoard) {
         // Instantiate game object from prefab
         GameObject unit = Instantiate(unitPrefab);
         unit.transform.SetParent(transform);
@@ -65,14 +69,15 @@ public class UnitManager : MonoBehaviour
         HealthBar hb = unit.GetComponentInChildren<HealthBar>();
         hb.Setup(baseUnit.health);
         
-        // Place on the board
-        baseUnit.Place(board.boardCells[x, y], true);
+        // Place on the board/bench
+        if (onBoard) baseUnit.Place(board.boardCells[x, y], true, true);
+        else baseUnit.Place(board.benchCells[x, y], true, false);
     }
 
     public void Begin() {
         this.running = true;
         foreach(BaseUnit unit in playerUnits) {
-            unit.Activate();
+            if (!unit.onBench) unit.Activate();
         }
     }
 

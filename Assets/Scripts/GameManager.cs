@@ -51,4 +51,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            //GameObject hand = GameObject.Find("Hand");
+            //hand.SetActive(!hand.activeSelf);
+        }
+    }
+
 }
