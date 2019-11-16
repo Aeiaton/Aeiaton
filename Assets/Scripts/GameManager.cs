@@ -12,12 +12,26 @@ public class GameManager : MonoBehaviour
     public enum Stage {SETUP, PLAY};
     public Stage gameStage;
 
+    // UI movement
+    private float handMoveTime = 0.3f;
+    private bool handMoving = false;
+    private bool handHidden = false;
+    private float handElapsedTimed;
+    private Vector3 handShowingPosition;
+    private Vector3 handHiddenPosition;
+
     void Start()
     {
         gameStage = Stage.SETUP;
         board.CreateBoard();
         board.CreateBench();
         unitManager.Setup(board);
+
+        // Set the position of the card hand ui to whatever it is
+        GameObject hand = GameObject.Find("Hand");
+        handShowingPosition = hand.transform.position;
+        handHiddenPosition = new Vector3(handShowingPosition.x, handShowingPosition.y - 300, 0);
+
     }
 
     public void SwitchGameStage(Stage newStage) {
@@ -51,11 +65,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            //GameObject hand = GameObject.Find("Hand");
-            //hand.SetActive(!hand.activeSelf);
+    // Animate the hand ui moving up or down
+    void updateHandUI() {
+        if (handMoving) {
+            GameObject hand = GameObject.Find("Hand");
+            handElapsedTimed += Time.deltaTime;
+            if (handHidden) {
+                hand.transform.position = Vector3.Lerp(handShowingPosition, handHiddenPosition, handElapsedTimed / handMoveTime);
+            } else {
+                hand.transform.position = Vector3.Lerp(handHiddenPosition, handShowingPosition, handElapsedTimed / handMoveTime);
+            }
+            if (handElapsedTimed >= handMoveTime) {
+                handMoving = false;
+            }
+        } else if (Input.GetKeyDown(KeyCode.C)) {
+            if (!handMoving) {
+                handElapsedTimed = 0f;
+                handMoving = true;
+                handHidden = !handHidden;
+            }
         }
+    }
+
+    void Update() {
+        updateHandUI();
     }
 
 }
