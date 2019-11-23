@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public UnitManager unitManager;
     public ShopManager shopManager;
 
+    public GameObject hand;
+
+    public GameObject endSetupButton;
+
     public enum Stage {SETUP, PLAY};
     public Stage gameStage;
 
@@ -17,34 +21,32 @@ public class GameManager : MonoBehaviour
         gameStage = Stage.SETUP;
         board.CreateBoard();
         board.CreateBench();
-        unitManager.Setup(board);
+        hand = GameObject.Find("Hand");
+        endSetupButton = GameObject.Find("EndSetupButton");
     }
 
     public void SwitchGameStage(Stage newStage) {
-        GameObject hand;
         switch (newStage) {
             case Stage.SETUP:
-
                 // Show the hand selection UI
-                hand = GameObject.Find("Hand");
                 hand.SetActive(true);
+                Debug.Log("switching game stage");
 
                 // Show the play button UI
-                GameObject.Find("EndSetupButton").SetActive(true);
+                endSetupButton.SetActive(true);
 
                 break;
             case Stage.PLAY:
 
                 // Hide the hand selection UI
-                hand = GameObject.Find("Hand");
                 hand.SetActive(false);
 
                 // Hide the play button UI
-                GameObject.Find("EndSetupButton").SetActive(false);
-
-
+                endSetupButton.SetActive(false);
+            
                 // Start updating units
                 GameObject unitManagerObject = GameObject.Find("UnitManager");
+                unitManager.Setup(board);
                 unitManagerObject.GetComponent<UnitManager>().Begin();
 
                 break;

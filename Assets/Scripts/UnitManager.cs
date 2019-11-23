@@ -21,14 +21,21 @@ public class UnitManager : MonoBehaviour
 
         Type[,] playerUnitTypes = new Type[8,4];
         playerUnitTypes[0, 0] = typeof(RangedUnit);
+<<<<<<< HEAD
         playerUnitTypes[1, 0] = typeof(AssassinUnit);
         playerUnitTypes[2, 0] = typeof(IdleUnit);
         playerUnitTypes[3, 0] = typeof(MeleeUnit);
         playerUnitTypes[0, 1] = typeof(MeleeUnit);
+=======
+       // playerUnitTypes[1, 0] = typeof(IdleUnit);
+       // playerUnitTypes[2, 0] = typeof(IdleUnit);
+       // playerUnitTypes[3, 0] = typeof(MeleeUnit);
+      //  playerUnitTypes[0, 1] = typeof(MeleeUnit);
+>>>>>>> rounds
 
         Type[,] opponentUnitTypes = new Type[8,4];
-        opponentUnitTypes[0, 3] = typeof(MeleeUnit);
-        opponentUnitTypes[1, 3] = typeof(MeleeUnit);
+       // opponentUnitTypes[0, 3] = typeof(MeleeUnit);
+       // opponentUnitTypes[1, 3] = typeof(MeleeUnit);
         opponentUnitTypes[2, 3] = typeof(MeleeUnit);
 
 
@@ -94,6 +101,37 @@ public class UnitManager : MonoBehaviour
                 unit.currentCell.currentUnit = null;
                 Destroy(unit.gameObject);
             }
+            if (checkRoundOver()) { //round over
+                running = false;
+
+                List<BaseUnit> toDelete = new List<BaseUnit>();
+                foreach(BaseUnit unit in playerUnits) {
+                    toDelete.Add(unit);
+                }
+
+                foreach(BaseUnit unit in toDelete) {
+                    playerUnits.Remove(unit);
+                    unit.currentCell.currentUnit = null;
+                    Destroy(unit.gameObject);
+                }
+                GameObject gameManagerObject = GameObject.FindGameObjectWithTag("GameController");
+                GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
+                gameManager.SwitchGameStage(GameManager.Stage.SETUP);
+            }
+        }
+    }
+
+    public Boolean checkRoundOver() {
+        if (playerUnits.Count == 0) {
+            return true;
+        } else {
+            bool isPlayer = playerUnits[0].isPlayer;
+            foreach(BaseUnit unit in playerUnits) {
+                if (unit.isPlayer != isPlayer) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
