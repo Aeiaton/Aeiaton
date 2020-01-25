@@ -10,12 +10,9 @@ public class ChessBoard : MonoBehaviour
     public ChessBoardCell[,] boardCells = new ChessBoardCell[8, 8];
     public ChessBoardCell[,] benchCells = new ChessBoardCell[1, 10];
 
-    public void CreateBoard()
-    {
-        for (int y = 0; y < 8; ++y)
-        {
-            for (int x = 0; x < 8; ++x)
-            {
+    public void CreateBoard() {
+        for (int y = 0; y < 8; ++y) {
+            for (int x = 0; x < 8; ++x) {
                 GameObject cell = Instantiate(cellPrefab, transform);
                 RectTransform rectTransform = cell.GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = new Vector2(x * 100 - 350, y * 100 - 350);
@@ -51,16 +48,5 @@ public class ChessBoard : MonoBehaviour
             
         }
     }
-    
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

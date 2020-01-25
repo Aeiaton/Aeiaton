@@ -12,6 +12,8 @@ public class ChessBoardCell : MonoBehaviour
 
     public BaseUnit currentUnit;
 
+    public bool occupied = false;
+
     public void Setup(Vector2Int position, ChessBoard board)
     {
         this.position = position;
@@ -19,9 +21,7 @@ public class ChessBoardCell : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public bool isOccupied() {
+        return occupied || currentUnit != null;
     }
 }

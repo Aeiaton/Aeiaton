@@ -16,6 +16,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
 	public void OnBeginDrag(PointerEventData eventData) {
 
+		// Debug.Log(this.GetComponent<Display>().card.text);
 		prevParent = this.transform.parent;
 		this.transform.SetParent(this.transform.parent.parent);
 
@@ -30,15 +31,13 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
-		
-
 		this.transform.SetParent (prevParent);
 		this.transform.SetSiblingIndex(indexNumber);
 		this.transform.localScale = new Vector3(1f, 1f, 1f);
 
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 		if (!hand) {
-			this.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+			this.transform.localScale = new Vector3(0.15f, 0.15f, 1f);
 			Destroy(this);
 		}
 
