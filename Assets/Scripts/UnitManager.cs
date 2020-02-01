@@ -21,17 +21,10 @@ public class UnitManager : MonoBehaviour
 
         Type[,] playerUnitTypes = new Type[8,4];
         playerUnitTypes[0, 0] = typeof(RangedUnit);
-<<<<<<< HEAD
         playerUnitTypes[1, 0] = typeof(AssassinUnit);
         playerUnitTypes[2, 0] = typeof(IdleUnit);
         playerUnitTypes[3, 0] = typeof(MeleeUnit);
         playerUnitTypes[0, 1] = typeof(MeleeUnit);
-=======
-       // playerUnitTypes[1, 0] = typeof(IdleUnit);
-       // playerUnitTypes[2, 0] = typeof(IdleUnit);
-       // playerUnitTypes[3, 0] = typeof(MeleeUnit);
-      //  playerUnitTypes[0, 1] = typeof(MeleeUnit);
->>>>>>> rounds
 
         Type[,] opponentUnitTypes = new Type[8,4];
        // opponentUnitTypes[0, 3] = typeof(MeleeUnit);
