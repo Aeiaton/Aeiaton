@@ -27,8 +27,8 @@ public class UnitManager : MonoBehaviour
         playerUnitTypes[0, 1] = typeof(MeleeUnit);
 
         Type[,] opponentUnitTypes = new Type[8,4];
-       // opponentUnitTypes[0, 3] = typeof(MeleeUnit);
-       // opponentUnitTypes[1, 3] = typeof(MeleeUnit);
+        opponentUnitTypes[0, 3] = typeof(MeleeUnit);
+        opponentUnitTypes[1, 3] = typeof(MeleeUnit);
         opponentUnitTypes[2, 3] = typeof(MeleeUnit);
 
 

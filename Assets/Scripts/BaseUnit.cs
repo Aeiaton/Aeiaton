@@ -14,6 +14,7 @@ public abstract class BaseUnit : EventTrigger
     public ChessBoardCell previousCell;
     protected ChessBoardCell destCell;
 
+    public List<Card> items;
     protected ChessBoardCell opponentCell;
     protected ChessBoardCell targetCell;
 
@@ -47,6 +48,7 @@ public abstract class BaseUnit : EventTrigger
         isFighting = false;
         arrivedAtNextCell = false;
         rectTransform = GetComponent<RectTransform>();
+        items = new List<Card>();
     }
 
     // Assign the cell to move to and begin movement
@@ -73,6 +75,15 @@ public abstract class BaseUnit : EventTrigger
     }
 
     public void Update() {
+        // Check Unit Inventory - Activate based on Card conditions
+        foreach (Card card in items)
+        {
+            if (card.isUsed == false)
+            {
+                card.Activate(this);
+            }
+        }   
+
         if (!isActive) return;
 
         // The unit is moving to a previously decided cell, so we don't make any decisions until it reaches the next cell.
@@ -116,7 +127,6 @@ public abstract class BaseUnit : EventTrigger
                 }
                 
             }
-            
         }
 
         if (isFighting) {
@@ -135,6 +145,11 @@ public abstract class BaseUnit : EventTrigger
             }
         }
         
+    }
+
+    // Enables the unit to gain strength through cards
+    public void IncrDamage(float incr) {
+        damage += incr;
     }
 
     public void TakeDamage(float damage) {

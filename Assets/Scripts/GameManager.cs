@@ -7,7 +7,10 @@ public class GameManager : MonoBehaviour
 
     public ChessBoard board;
     public UnitManager unitManager;
-    public ShopManager shopManager;
+    public HandManager handManager;
+
+    public enum Stage {SETUP, PLAY};
+    public Stage gameStage;
 
     public GameObject hand;
 
@@ -21,19 +24,21 @@ public class GameManager : MonoBehaviour
         gameStage = Stage.SETUP;
         board.CreateBoard();
         board.CreateBench();
-        hand = GameObject.Find("Hand");
-        endSetupButton = GameObject.Find("EndSetupButton");
+        unitManager.Setup(board);
+        handManager.Setup();
     }
 
     public void SwitchGameStage(Stage newStage) {
+        GameObject hand;
         switch (newStage) {
             case Stage.SETUP:
+
                 // Show the hand selection UI
+                hand = GameObject.Find("Hand");
                 hand.SetActive(true);
-                Debug.Log("switching game stage");
 
                 // Show the play button UI
-                endSetupButton.SetActive(true);
+                GameObject.Find("EndSetupButton").SetActive(true);
 
                 break;
             case Stage.PLAY:

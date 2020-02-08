@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class ChessBoardCell : MonoBehaviour
 {
 
+	public int speedModifyer = 0;
+	public int attackModifyer = 0;
+
     public Vector2Int position = Vector2Int.zero;
     public ChessBoard board = null;
     public RectTransform rectTransform = null;
