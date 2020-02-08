@@ -9,11 +9,14 @@ public class AssassinUnit : BaseUnit
     // 'base' is keyword, references the parent
     override public void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color) {
         base.Setup(unitManager, board, isPlayer, color);
-        speed = AutoChessData.ASSASSIN_SPEED;
-        health = AutoChessData.ASSASSIN_HEALTH;
-        attackWait = AutoChessData.ASSASSIN_ATTACK_SPEED;
+        
+        this.speed = AutoChessData.ASSASSIN_SPEED;
+        this.health = AutoChessData.ASSASSIN_HEALTH;
+        this.attackWait = AutoChessData.ASSASSIN_ATTACK_SPEED;
+        this.max_mana = AutoChessData.ASSASSIN_MANA;
+
         Image image = gameObject.GetComponent<Image>();
-        image.sprite = Resources.Load<Sprite>("Robot");
+        image.sprite = Resources.Load<Sprite>("assassin");
     }
 
     // TODO: if there isn't any adjacent free cell for the closest opponent, then we should consider the next closest.

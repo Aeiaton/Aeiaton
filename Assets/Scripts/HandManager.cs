@@ -34,8 +34,6 @@ public class HandManager : MonoBehaviour
 			card.transform.SetParent(itemsParent);
 			card.transform.localScale = new Vector3(1, 1, 1);
         }
-
-
 	}
 
 

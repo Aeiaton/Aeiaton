@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public ChessBoard board;
     public UnitManager unitManager;
     public HandManager handManager;
+    public DeckManager DeckManager;
 
     public enum Stage {SETUP, PLAY};
     public Stage gameStage;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         board.CreateBench();
         unitManager.Setup(board);
         handManager.Setup();
+        DeckManager.Setup();
     }
 
     public void SwitchGameStage(Stage newStage) {
@@ -38,7 +40,7 @@ public class GameManager : MonoBehaviour
 
                 // Hide the hand selection UI
                 hand = GameObject.Find("Hand");
-                hand.SetActive(false);
+                // hand.SetActive(false);
 
                 // Hide the play button UI
                 GameObject.Find("EndSetupButton").SetActive(false);

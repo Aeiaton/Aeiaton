@@ -64,6 +64,10 @@ public class UnitManager : MonoBehaviour
         // Give the health bar the health so it knows how much to decrease by
         HealthBar hb = unit.GetComponentInChildren<HealthBar>();
         hb.Setup(baseUnit.health);
+
+        // Give the mana bar the max_mana
+        ManaBar mb = unit.GetComponentInChildren<ManaBar>();
+        mb.Setup(baseUnit.max_mana);
         
         // Place on the board
         baseUnit.Place(board.boardCells[x, y], true);
