@@ -1273,7 +1273,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: World Map
+  m_Text: 'Level Map
+
+'
 --- !u!222 &1039890150
 CanvasRenderer:
   m_ObjectHideFlags: 0

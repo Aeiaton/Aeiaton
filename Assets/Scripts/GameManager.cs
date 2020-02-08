@@ -47,11 +47,11 @@ public class GameManager : MonoBehaviour
                 hand.SetActive(false);
 
                 // Hide the play button UI
-                endSetupButton.SetActive(false);
+                GameObject.Find("EndSetupButton").SetActive(false);
             
                 // Start updating units
                 GameObject unitManagerObject = GameObject.Find("UnitManager");
-                unitManager.Setup(board);
+                // unitManager.Setup(board);
                 unitManagerObject.GetComponent<UnitManager>().Begin();
 
                 break;
