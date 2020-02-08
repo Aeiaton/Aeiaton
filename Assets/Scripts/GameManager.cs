@@ -17,9 +17,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject endSetupButton;
 
-    public enum Stage {SETUP, PLAY};
-    public Stage gameStage;
-
     void Start()
     {
         gameStage = Stage.SETUP;
@@ -46,6 +43,7 @@ public class GameManager : MonoBehaviour
             case Stage.PLAY:
 
                 // Hide the hand selection UI
+                hand = GameObject.Find("Hand");
                 hand.SetActive(false);
 
                 // Hide the play button UI
