@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraDrag : MonoBehaviour
 {
 
-    private float speed = 2;
+    private float speed = -5;
     private Vector3 dragStart;
 
     void Update()
