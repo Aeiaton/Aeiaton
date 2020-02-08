@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public ChessBoard board;
     public UnitManager unitManager;
     public HandManager handManager;
+    public DeckManager DeckManager;
 
     public enum Stage {SETUP, PLAY};
     public Stage gameStage;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
         board.CreateBench();
         unitManager.Setup(board);
         handManager.Setup();
+        DeckManager.Setup();
     }
 
     public void SwitchGameStage(Stage newStage) {

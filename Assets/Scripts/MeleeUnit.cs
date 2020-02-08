@@ -11,9 +11,10 @@ public class MeleeUnit : BaseUnit {
         base.Setup(unitManager, board, isPlayer, color);
         speed = AutoChessData.MELEE_SPEED;
         health = AutoChessData.MELEE_HEALTH;
+        max_mana = AutoChessData.MELEE_MANA;
         attackWait = AutoChessData.MELEE_ATTACK_SPEED;
         Image image = gameObject.GetComponent<Image>();
-        image.sprite = Resources.Load<Sprite>("Purple_Guard");
+        image.sprite = Resources.Load<Sprite>("melee");
     }
 
     // TODO: if there isn't any adjacent free cell for the closest opponent, then we should consider the next closest.

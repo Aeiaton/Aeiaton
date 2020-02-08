@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_name: Heartbreak
   text: Add Health
-  card_image: {fileID: 21300000, guid: 19d9c13a2f1dfda4990d70094200e612, type: 3}
+  card_image: {fileID: 21300000, guid: 312de49e5a4551f4e81a5b06b1ef260c, type: 3}
   cost: 5
   isUsed: 0
+  atkMod: 0
+  spdMod: 0
+  healthMod: 2
+  manaMod: 0

@@ -10,8 +10,9 @@ public class RangedUnit : BaseUnit {
         speed = AutoChessData.RANGED_SPEED;
         health = AutoChessData.RANGED_HEALTH;
         attackWait = AutoChessData.RANGED_ATTACK_SPEED;
+        max_mana = AutoChessData.RANGED_MANA;
         Image image = gameObject.GetComponent<Image>();
-        image.sprite = Resources.Load<Sprite>("Cyclo_Elder");
+        image.sprite = Resources.Load<Sprite>("ranged");
     }
 
     // TODO: ranged unit might want to move away from opponent, and then start attacking, so that it keeps its distance

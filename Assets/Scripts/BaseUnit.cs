@@ -9,17 +9,19 @@ public abstract class BaseUnit : EventTrigger
 
     public Color color = Color.clear;
     protected RectTransform rectTransform = null;
+
     protected UnitManager unitManager;
+
+    // ChessBoard Information:
+    protected ChessBoard board;
     public ChessBoardCell currentCell;
     public ChessBoardCell previousCell;
     protected ChessBoardCell destCell;
-
-    public List<Card> items;
     protected ChessBoardCell opponentCell;
     protected ChessBoardCell targetCell;
 
-    protected ChessBoard board;
 
+    public List<Card> items;
     public bool isActive;
 
     // True when unit is moving between source and destination cells
@@ -27,7 +29,10 @@ public abstract class BaseUnit : EventTrigger
     public bool isFighting;
     public bool arrivedAtNextCell;
 
+    // Unit Stats:
     public float health;
+    public float max_mana;
+    public float mana;
     protected float damage = 1;
     public float attackWait;
     public float timeSinceLastAttack = 0;
@@ -37,18 +42,25 @@ public abstract class BaseUnit : EventTrigger
 
     public bool isPlayer;
 
-    public virtual void Setup(UnitManager unitManager, ChessBoard board, bool isPlayer, Color32 color) {
+    public virtual void Setup(UnitManager unitManager, ChessBoard board, 
+    	bool isPlayer, Color32 color) {
+
+        // Game Information
         this.unitManager = unitManager;
-        this.color = color;
-        GetComponent<Image>().color = color;
         this.board = board;
+        
+        // Unit Information
         this.isPlayer = isPlayer;
         this.isActive = false;
         isMoving = false;
         isFighting = false;
         arrivedAtNextCell = false;
-        rectTransform = GetComponent<RectTransform>();
         items = new List<Card>();
+
+        // Drawing Information
+        rectTransform = GetComponent<RectTransform>();
+        GetComponent<Image>().color = color;
+        this.color = color;
     }
 
     // Assign the cell to move to and begin movement
@@ -76,10 +88,8 @@ public abstract class BaseUnit : EventTrigger
 
     public void Update() {
         // Check Unit Inventory - Activate based on Card conditions
-        foreach (Card card in items)
-        {
-            if (card.isUsed == false)
-            {
+        foreach (Card card in items) {
+            if (card.isUsed == false) {
                 card.Activate(this);
             }
         }   
@@ -161,6 +171,8 @@ public abstract class BaseUnit : EventTrigger
         if (opponentCell != null) {
             BaseUnit opponent = opponentCell.currentUnit;
             opponent.TakeDamage(damage);
+            mana++;
+            GetComponentInChildren<ManaBar>().mana = mana;
         }
     }
     

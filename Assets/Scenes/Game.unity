@@ -270,7 +270,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 830.5, y: 400}
+  m_AnchoredPosition: {x: 660, y: 400}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &13185723
@@ -706,6 +706,7 @@ RectTransform:
   - {fileID: 1080327482}
   - {fileID: 1174616061}
   - {fileID: 13185722}
+  - {fileID: 1446417267}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -928,6 +929,137 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   space: 10
   items: []
+--- !u!1 &1446417266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1446417267}
+  - component: {fileID: 1446417270}
+  - component: {fileID: 1446417271}
+  - component: {fileID: 1446417269}
+  - component: {fileID: 1446417268}
+  m_Layer: 5
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1446417267
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446417266}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_Children: []
+  m_Father: {fileID: 721890870}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 508, y: -527.74}
+  m_SizeDelta: {x: 480, y: 700}
+  m_Pivot: {x: 0.5000001, y: 0.49999988}
+--- !u!114 &1446417268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446417266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1446417269
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446417266}
+  m_CullTransparentMesh: 0
+--- !u!114 &1446417270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446417266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: -480
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+--- !u!114 &1446417271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446417266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc8ff4d66da8be45b23d3c7d9ff19f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsParent: {fileID: 1446417267}
+  handParent: {fileID: 1456544430}
+  cardPanelPrefab: {fileID: 4483056900881265607, guid: 9382b2484c406904189095be1facd107,
+    type: 3}
+  cardPrefab: {fileID: 6093089889079382858, guid: 15ca749fce97b9045875d0e94decf25c,
+    type: 3}
+  cards:
+  - {fileID: 11400000, guid: ebb258de129882645b6b6955351b3bfc, type: 2}
+  - {fileID: 11400000, guid: cd2c0d763fcff3a4f9f3e4b88bef59dd, type: 2}
+  - {fileID: 11400000, guid: d69ec33117629c64398eba24fe6174f1, type: 2}
+  - {fileID: 11400000, guid: 2ef7ef0a6d2cfa44e8495998d92f9cb0, type: 2}
+  - {fileID: 11400000, guid: c515632166c49834ab02f87804495b85, type: 2}
+  - {fileID: 11400000, guid: 5668df937346b7644a37e75e2a4d0294, type: 2}
+  - {fileID: 11400000, guid: 13b92bd38a4bfb34ea9329d44a1292d1, type: 2}
+  - {fileID: 11400000, guid: 8386296b2af9b4a478b3f6ed8dd8af47, type: 2}
+  - {fileID: 11400000, guid: f1605e1061c504a45a37414fa481f318, type: 2}
+  - {fileID: 11400000, guid: ab74f626ac225f344aa551671f6750c2, type: 2}
+  - {fileID: 11400000, guid: ee3b8a7d9694cfe439df9fc2661ced71, type: 2}
+  deck: []
 --- !u!1 &1456544429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +1137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.16078432}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.23137255}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1047,6 +1179,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ebb258de129882645b6b6955351b3bfc, type: 2}
   - {fileID: 11400000, guid: 2ef7ef0a6d2cfa44e8495998d92f9cb0, type: 2}
   - {fileID: 11400000, guid: ee3b8a7d9694cfe439df9fc2661ced71, type: 2}
+  - {fileID: 11400000, guid: d69ec33117629c64398eba24fe6174f1, type: 2}
+  - {fileID: 11400000, guid: cd2c0d763fcff3a4f9f3e4b88bef59dd, type: 2}
+  - {fileID: 11400000, guid: ab74f626ac225f344aa551671f6750c2, type: 2}
+  - {fileID: 11400000, guid: f1605e1061c504a45a37414fa481f318, type: 2}
+  - {fileID: 11400000, guid: 8386296b2af9b4a478b3f6ed8dd8af47, type: 2}
+  - {fileID: 11400000, guid: 13b92bd38a4bfb34ea9329d44a1292d1, type: 2}
+  - {fileID: 11400000, guid: 5668df937346b7644a37e75e2a4d0294, type: 2}
+  - {fileID: 11400000, guid: c515632166c49834ab02f87804495b85, type: 2}
 --- !u!114 &1482195093 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 133016573819891458, guid: 30bc4dd2f6dee1d4f8713e642815a53e,
@@ -1102,6 +1242,11 @@ PrefabInstance:
       propertyPath: handManager
       value: 
       objectReference: {fileID: 1456544434}
+    - target: {fileID: -4505757157823700613, guid: 71617f286e1adf04f93d64a8b7806f5a,
+        type: 3}
+      propertyPath: DeckManager
+      value: 
+      objectReference: {fileID: 1446417271}
     - target: {fileID: 8685575171388624353, guid: 71617f286e1adf04f93d64a8b7806f5a,
         type: 3}
       propertyPath: m_LocalPosition.x
