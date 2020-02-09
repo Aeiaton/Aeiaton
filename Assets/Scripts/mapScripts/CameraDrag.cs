@@ -8,6 +8,12 @@ public class CameraDrag : MonoBehaviour
     private float speed = -5;
     private Vector3 dragStart;
 
+    void Start() {
+        if (GameData.mapPosition != null) {
+            transform.position = GameData.mapPosition;
+        }
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
@@ -27,6 +33,7 @@ public class CameraDrag : MonoBehaviour
             0);
 
         transform.Translate(newPosition, Space.World);
+        GameData.mapPosition = transform.position;
 
     }
 }

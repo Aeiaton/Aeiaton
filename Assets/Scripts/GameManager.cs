@@ -34,10 +34,12 @@ public class GameManager : MonoBehaviour
 
                 // Show the hand selection UI
                 hand = GameObject.Find("Hand");
-                hand.SetActive(true);
+                if (hand != null) {
+                    hand.SetActive(true);
+                }
 
                 // Show the play button UI
-                GameObject.Find("EndSetupButton").SetActive(true);
+                // GameObject.Find("EndSetupButton").SetActive(true);
 
                 break;
             case Stage.PLAY:

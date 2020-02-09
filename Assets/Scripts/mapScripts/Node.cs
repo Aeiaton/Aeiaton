@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Node : MonoBehaviour
 {
@@ -26,8 +27,7 @@ public class Node : MonoBehaviour
     public string[] connectedTo;
     private bool revealed;
 
-    void Start()
-    {
+    public void init() {
         foreach (string node in connectedTo) {
             MapHandler mapHandler = GetComponentInParent<MapHandler>();
             mapHandler.AddEdge(id, node);
@@ -36,12 +36,12 @@ public class Node : MonoBehaviour
         if (this.gameObject.name.Equals("Node_1")) {
             Reveal();
         }
-        
     }
 
     public void Reveal()
     {
         revealed = true;
+        GameData.revealedNodes.Add(id);
         gameObject.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("Node_" + type.ToString());
     }
 
@@ -69,7 +69,18 @@ public class Node : MonoBehaviour
     {
         if (revealed) {
             MapHandler mapHandler = GetComponentInParent<MapHandler>();
-            mapHandler.ActivateNode(id);
+            GameData.completedNodes.Add(id);
+            GameData.selectedNode = id;
+            // mapHandler.ActivateNode(id);
+            if (type.Equals(NodeType.Power)) {
+                SceneManager.LoadScene("rest");
+            } else if (type.Equals(NodeType.Something)) {
+                SceneManager.LoadScene("story");
+            } else if (type.Equals(NodeType.Monster1)) {
+                SceneManager.LoadScene("game");
+            } else {
+                mapHandler.CompleteNode(id);
+            }
         }
     }
 

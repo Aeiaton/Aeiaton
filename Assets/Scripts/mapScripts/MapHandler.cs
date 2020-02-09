@@ -15,9 +15,26 @@ public class MapHandler : MonoBehaviour
         edgeNodeMap = new Dictionary<string, List<GameObject>>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Start() {
+
+        for (int i = 0; i < this.gameObject.transform.childCount; i++) {
+            GameObject gameObject = this.gameObject.transform.GetChild(i).gameObject;
+            Node node = gameObject.GetComponent(typeof(Node)) as Node;
+            if (node != null) {
+                node.init();
+            }
+        }
+
+        // Check the node that we are returning from, and mark it as completed
+        if (GameData.selectedNode != null) {
+            CompleteNode(GameData.selectedNode);
+            GameData.selectedNode = null;
+        }
+
+        foreach (string node in GameData.completedNodes) {
+            CompleteNode(node);
+        }
+
         
     }
 
@@ -61,7 +78,11 @@ public class MapHandler : MonoBehaviour
         }
     }
 
-    public void ActivateNode(string node) {
+    public void CompleteNode(string node) {
+
+        if (!GameData.completedNodes.Contains(node)) {
+            GameData.completedNodes.Add(node);
+        }
 
         if (edgeObjectMap.ContainsKey(node)) {
             List<GameObject> edges = edgeObjectMap[node];
@@ -76,6 +97,9 @@ public class MapHandler : MonoBehaviour
             foreach (GameObject nodeObject in nodes) {
                 Node nodeComponent = nodeObject.GetComponent(typeof(Node)) as Node;
                 nodeComponent.Reveal();
+                if (!GameData.revealedNodes.Contains(nodeComponent.id)) {
+                    GameData.revealedNodes.Add(nodeComponent.id);
+                }
             }
         }
     }
