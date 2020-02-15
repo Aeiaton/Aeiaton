@@ -1,0 +1,31 @@
+{
+    "levels": [
+        {
+            "name": "start",
+            "units": [
+                {"type": "melee", "x": 0, "y": 0},
+                {"type": "melee", "x": 1, "y": 0},
+                {"type": "melee", "x": 2, "y": 0},
+                {"type": "melee", "x": 3, "y": 0},
+                {"type": "melee", "x": 4, "y": 0}
+            ]
+        },
+        {
+            "name": "Node_4",
+            "units": [
+                {"type": "ranged", "x": 0, "y": 0},
+                {"type": "ranged", "x": 1, "y": 0},
+                {"type": "ranged", "x": 2, "y": 0},
+                {"type": "ranged", "x": 3, "y": 0},
+                {"type": "ranged", "x": 4, "y": 0}
+            ]
+        },
+        {
+            "name": "Node_5",
+            "units": [
+                {"type": "ranged", "x": 0, "y": 0},
+                {"type": "ranged", "x": 1, "y": 0}
+            ]
+        }
+    ]
+}

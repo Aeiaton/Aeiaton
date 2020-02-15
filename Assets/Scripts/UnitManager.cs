@@ -19,6 +19,16 @@ public class UnitManager : MonoBehaviour
         running = false;
         playerUnits = new List<BaseUnit>();
 
+        // Load this specific enemy layout
+        Debug.Log("Loading map "+GameData.selectedNode);
+        Level level = null;
+        if (GameData.levels.TryGetValue(GameData.selectedNode, out level)) {}
+        else {
+            Debug.Log("UnitManager: could not find level "+GameData.selectedNode);
+            level = new Level();
+            level.units = new EnemyUnit[0];
+        }
+
         Type[,] playerUnitTypes = new Type[8,4];
         playerUnitTypes[0, 0] = typeof(RangedUnit);
         playerUnitTypes[1, 0] = typeof(AssassinUnit);
@@ -27,10 +37,20 @@ public class UnitManager : MonoBehaviour
         playerUnitTypes[0, 1] = typeof(MeleeUnit);
 
         Type[,] opponentUnitTypes = new Type[8,4];
-        opponentUnitTypes[0, 3] = typeof(MeleeUnit);
-        opponentUnitTypes[1, 3] = typeof(MeleeUnit);
-        opponentUnitTypes[2, 3] = typeof(MeleeUnit);
+        // opponentUnitTypes[0, 3] = typeof(MeleeUnit);
+        // opponentUnitTypes[1, 3] = typeof(MeleeUnit);
+        // opponentUnitTypes[2, 3] = typeof(MeleeUnit);
 
+        foreach (EnemyUnit unit in level.units) {
+            Type type = null;
+            switch (unit.type.ToLower()) {
+                case "idle": type = typeof(IdleUnit); break;
+                case "melee": type = typeof(MeleeUnit); break;
+                case "ranged": type = typeof(RangedUnit); break;
+                case "assassin": type = typeof(AssassinUnit); break;
+            }
+            opponentUnitTypes[unit.x, unit.y] = type;
+        }
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 4; ++y) {

@@ -8,4 +8,5 @@ public static class GameData
     public static Vector3 mapPosition = new Vector3(0f, 0f, -50f);
     public static List<string> revealedNodes = new List<string>();
     public static List<string> completedNodes = new List<string>();
+    public static Dictionary<string, Level> levels = new Dictionary<string, Level>();
 }
